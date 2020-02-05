@@ -24,7 +24,7 @@ namespace DNDBackend.API.Controllers
 // let's add the middleware for auth0 and try to access this endpoint
         // GET api/users
         [HttpGet]
-        [Route("private")]
+        // [Route("private")]
         [Authorize]
         public async Task<ActionResult<IEnumerable<UserTable>>> Get()
         {
@@ -34,6 +34,7 @@ namespace DNDBackend.API.Controllers
 
         // GET api/users/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<UserTable>> Get(int id)
         {
             var UserTable = await _context.UserTables.FindAsync(id);

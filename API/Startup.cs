@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,18 +25,6 @@ namespace API
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            HostingEnvironment = hostingEnvironment;
-                //    WORK ON LOGGING TO FIND WHY GETTING A 405 AND THEN FIX THE ERRO.
-            // if (HostingEnvironment.IsDevelopment())
-            // {
-            //         Log.Logger = new LoggerConfiguration()
-            //             .MinimumLevel.Debug()
-            //             .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-            //             .MinimumLevel.Override("System", LogEventLevel.Warning)
-            //             .Enrich.FromLogContext()
-            //             .WriteTo.Console()
-            //             .CreateLogger();
-            // }
         }
 
         public IConfiguration Configuration { get; }
@@ -43,27 +32,49 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder =>
+                    {
+                        builder
+                        .WithOrigins("http://localhost:3000")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials();
+                    });
+            });
+
+            // need to fix cors? getting Access to fetch at 'http://localhost:5000/api/users' from origin 'http://localhost:3000' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
             services.AddDbContext<DataContext> (opt =>
             {
                 opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
             services.AddControllers();
             
-            string domain = $"https://{Configuration["Auth0:Domain"]}/";
+            // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
             
+
+            var domain = $"https://{Configuration["Auth0:Domain"]}/";
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
             }).AddJwtBearer(options =>
             {
                 options.Authority = domain;
                 options.Audience = Configuration["Auth0:ApiIdentifier"];
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                NameClaimType = ClaimTypes.NameIdentifier
-                };
             });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("read:messages", policy => policy.Requirements.Add(new HasScopeRequirement("read:messages", domain)));
+            });
+
+            // Register the scope authorization handler
+            services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
             
         }
 
@@ -75,18 +86,25 @@ namespace API
                 app.UseDeveloperExceptionPage();
             }
 
-            // app.UseHttpsRedirection();
+            app.UseCors("AllowSpecificOrigin");
+
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthentication();
 
             app.UseAuthorization();
-
+        
+                    
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+            
+  
+
+            // app.UseMvc();
             
         }
     }
