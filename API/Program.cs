@@ -28,13 +28,13 @@ namespace API
                 catch (Exception ex)
                 {
                     var logger = Services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "An Error Occured during Migration.");
+                    logger.LogError(ex, "An Error happened during Migration.");
                 }
             }
             host.Run();
 
         }
-
+    
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>

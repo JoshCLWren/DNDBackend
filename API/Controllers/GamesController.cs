@@ -12,32 +12,31 @@ namespace DNDBackend.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class GamesController : ControllerBase
     {
 
         private readonly DataContext _context;
-        public UsersController(DataContext context)
+        public GamesController(DataContext context)
         {
             this._context = context;
 
         }
-// let's add the middleware for auth0 and try to access this endpoint
-        // GET api/users
+
         [HttpGet]
-        [Authorize]
-        public async Task<ActionResult<IEnumerable<User>>> Get()
+        // [Authorize]
+        public async Task<ActionResult<IEnumerable<Game>>> Get()
         {
-            var Users = await _context.Users.Include(u => u.Games).ToListAsync();
-            return Ok(Users);
+            var Games = await _context.Game.ToListAsync();
+            return Ok(Games);
         }
 
         // GET api/users/5
         [HttpGet("{id}")]
         // [Authorize]
-        public async Task<ActionResult<User>> Get(int id)
+        public async Task<ActionResult<Game>> Get(int id)
         {
-            var User = await _context.Users.FindAsync(id);
-            return Ok(User);
+            var Game = await _context.Game.FindAsync(id);
+            return Ok(Game);
         }
 
         // POST api/users

@@ -10,15 +10,25 @@ namespace Persistance
         {
             
         }
-        public DbSet<UserTable> UserTables { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Game> Game {get; set; }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        // public DbSet<UserGame> UserGame {get; set; }
+        protected override void OnModelCreating(ModelBuilder  modelBuilder)
         {
-            builder.Entity<UserTable>()
+            modelBuilder.Entity<User>()
                 .HasData(
-                    new UserTable {Id = 1, UserName = "Josh", Email ="josh@life.com" },
-                    new UserTable {Id = 2, UserName = "Joshua", Email ="josasdfasdfh@life.com" },
-                    new UserTable {Id = 3, UserName = "Joshie", Email ="joasdfsh@life.com" }
+                    new User {Id = 1, UserName = "Josh", Email ="josh@life.com", },
+                    new User {Id = 2, UserName = "Tim", Email ="josasdfasdfh@life.com"},
+                    new User {Id = 3, UserName = "Bob", Email ="joasdfsh@life.com"}
+                );
+            modelBuilder.Entity<Game>()
+                .HasData(
+                    new Game {GameId = 1, GameName ="Goblin Battle", UserId = 1},
+                    new Game {GameId = 2, GameName ="Orc Battle", UserId = 1},
+                    new Game {GameId = 3, GameName ="Dragon Battle", UserId = 1},
+                    new Game {GameId = 4, GameName ="Minotaur Battle", UserId = 2}
+
                 );
         }
     }
