@@ -33,7 +33,7 @@ namespace DNDBackend.API.Controllers
 
         // GET api/users/5
         [HttpGet("{id}")]
-        // [Authorize]
+        [Authorize]
         public async Task<ActionResult<User>> Get(int id)
         {
             var User = await _context.Users.FindAsync(id);
