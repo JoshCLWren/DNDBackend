@@ -39,6 +39,13 @@ namespace DNDBackend.API.Controllers
             var User = await _context.Users.FindAsync(id);
             return Ok(User);
         }
+        // [HttpGet("{UserName}")]
+        // [Authorize]
+        // public async Task<ActionResult<User>> Get(string UserName)
+        // {
+        //     var User = await _context.Users.FindAsync(UserName);
+        //     return Ok(User);
+        // }
 
         // POST api/users
         [HttpPost]

@@ -8,7 +8,7 @@ using Persistance;
 namespace Persistance.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200214034253_InitialCreate")]
+    [Migration("20200216033523_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -82,8 +82,8 @@ namespace Persistance.Migrations
                         new
                         {
                             Id = 1,
-                            Email = "josh@life.com",
-                            UserName = "Josh"
+                            Email = "joshisplutar@gmail.com",
+                            UserName = "Josh Wren"
                         },
                         new
                         {

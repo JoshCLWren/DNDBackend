@@ -23,7 +23,7 @@ namespace DNDBackend.API.Controllers
         }
 
         [HttpGet]
-        // [Authorize]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Game>>> Get()
         {
             var Games = await _context.Game.ToListAsync();
@@ -32,7 +32,7 @@ namespace DNDBackend.API.Controllers
 
         // GET api/users/5
         [HttpGet("{id}")]
-        // [Authorize]
+        [Authorize]
         public async Task<ActionResult<Game>> Get(int id)
         {
             var Game = await _context.Game.FindAsync(id);

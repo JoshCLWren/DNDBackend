@@ -18,7 +18,7 @@ namespace Persistance
         {
             modelBuilder.Entity<User>()
                 .HasData(
-                    new User {Id = 1, UserName = "Josh", Email ="josh@life.com", },
+                    new User {Id = 1, UserName = "Josh Wren", Email ="joshisplutar@gmail.com", },
                     new User {Id = 2, UserName = "Tim", Email ="josasdfasdfh@life.com"},
                     new User {Id = 3, UserName = "Bob", Email ="joasdfsh@life.com"}
                 );

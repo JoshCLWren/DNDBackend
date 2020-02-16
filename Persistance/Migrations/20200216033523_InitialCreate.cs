@@ -43,7 +43,7 @@ namespace Persistance.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "UserName" },
-                values: new object[] { 1, "josh@life.com", "Josh" });
+                values: new object[] { 1, "joshisplutar@gmail.com", "Josh Wren" });
 
             migrationBuilder.InsertData(
                 table: "Users",

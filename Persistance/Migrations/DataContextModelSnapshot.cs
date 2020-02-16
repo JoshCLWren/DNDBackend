@@ -80,8 +80,8 @@ namespace Persistance.Migrations
                         new
                         {
                             Id = 1,
-                            Email = "josh@life.com",
-                            UserName = "Josh"
+                            Email = "joshisplutar@gmail.com",
+                            UserName = "Josh Wren"
                         },
                         new
                         {
