@@ -21,12 +21,14 @@ namespace DNDBackend.API.Controllers
             this._context = context;
 
         }
-// let's add the middleware for auth0 and try to access this endpoint
+
         // GET api/users
         [HttpGet]
         [Authorize]
         public async Task<ActionResult<IEnumerable<User>>> Get()
-        {
+        // if user is found in users.db retern ok else new user
+
+        {   
             var Users = await _context.Users.Include(u => u.Games).ToListAsync();
             return Ok(Users);
         }
@@ -49,9 +51,13 @@ namespace DNDBackend.API.Controllers
 
         // POST api/users
         [HttpPost]
-        public void Post([FromBody] string users)
+        public async Task<ActionResult<User>> PostUser(User user)
         {
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(Get), new {UserName = user.UserName, email = user.Email}, user);
         }
+
 
         // PUT api/users/5
         [HttpPut("{id}")]
