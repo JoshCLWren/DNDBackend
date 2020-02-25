@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Persistance;
+using RestSharp;
 
 namespace DNDBackend.API.Controllers
 {
@@ -38,16 +39,21 @@ namespace DNDBackend.API.Controllers
         [Authorize]
         public async Task<ActionResult<User>> Get(int id)
         {
+            var client = new RestClient("https://dev-59tm9cah.auth0.com/oauth/token");
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("content-type", "application/x-www-form-urlencoded");
+            request.AddParameter("application/x-www-form-urlencoded", "grant_type=client_credentials&client_id=EoGFS9Hp23cuIpTr5iiQSzJvJiYtGm3A%24%7Baccount.clientId%7D&client_secret=VymQ6EZjDo7J3nCIEaGGSuVG_W642JbzoLN6GEZkroRAV_1iCgOVA5FDtqRV1JiR&audience=https%3A%2F%2F%24%7Baccount.namespace%7D%2Fapi%2Fv2%2F", ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+            var token = response.Content;
+            Console.WriteLine(token);
+            // why is this saying access denied? Are the parameters correct?
             var User = await _context.Users.FindAsync(id);
+            Console.WriteLine(User); 
+            
             return Ok(User);
+
         }
-        // [HttpGet("{UserName}")]
-        // [Authorize]
-        // public async Task<ActionResult<User>> Get(string UserName)
-        // {
-        //     var User = await _context.Users.FindAsync(UserName);
-        //     return Ok(User);
-        // }
+
 
         // POST api/users
         [HttpPost]

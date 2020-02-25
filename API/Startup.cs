@@ -46,18 +46,13 @@ namespace API
                     });
             });
 
-            // need to fix cors? getting Access to fetch at 'http://localhost:5000/api/users' from origin 'http://localhost:3000' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
             services.AddDbContext<DataContext> (opt =>
             {
                 opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
             services.AddControllers(option => option.EnableEndpointRouting = false)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
-            
-            // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-            
+                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);   
 
             var domain = $"https://{Configuration["Auth0:Domain"]}/";
             services.AddAuthentication(options =>
