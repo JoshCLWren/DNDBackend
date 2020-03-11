@@ -64,13 +64,29 @@ namespace DNDBackend.API.Controllers
             Console.WriteLine("=================================");
             Console.WriteLine(bearerToken[1]);
             var txtJwtIn = bearerToken[1];
-            // split works but now I need decode the jwt token...
             var handler = new JwtSecurityTokenHandler();
             var jsonToken = handler.ReadToken(txtJwtIn);
-            var tokenS = handler.ReadToken(txtJwtIn) as JwtSecurityToken;
+            var decodedToken = handler.ReadToken(txtJwtIn) as JwtSecurityToken;
             Console.WriteLine("+++++++++++++++++++++++++++++++++++");
-            Console.WriteLine(tokenS);
-            // now I need to get the Sub key value pair pulled from tokenS and then split after the | 
+            Console.WriteLine(decodedToken.Subject);
+            var sub = decodedToken.Subject;
+            Console.WriteLine("SUB+++++++++++++++++++++++++++++++++++");
+            Console.WriteLine(sub);
+            string[] subSplit = sub.Split("|");
+            Console.WriteLine("postpipe||||||||||||||||||||||||||||||||||");
+            Console.WriteLine(subSplit[1]);
+            long goodId = Int64.Parse(subSplit[1]);
+            Console.WriteLine("interger time -------------------------");
+            Console.WriteLine(goodId);
+            //  does goodId = id?
+            if (goodId == id)
+                {
+                    Console.WriteLine("goodId = id");
+                }
+                else {
+                    Console.WriteLine("goodId = " + goodId + " but the id you seached was " + id);
+                }
+            
 
             var User = await _context.Users.FindAsync(id);    
             return Ok(User);

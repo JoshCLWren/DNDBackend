@@ -9,7 +9,7 @@ namespace Domain
     public class User
 
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
         public ICollection<Game> Games {get; set;} 
@@ -18,9 +18,9 @@ namespace Domain
     }   
     public class Game
     {
-        public int GameId {get; set;}
+        public long GameId {get; set;}
         public string GameName { get; set; }
-        public int UserId { get; set; }
+        public long UserId { get; set; }
         public User User {get; set;}
         // public ICollection<UserGame> UsersGames { get; set; }
     }

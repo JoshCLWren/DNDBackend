@@ -10,7 +10,7 @@ namespace Persistance.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     UserName = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true)
@@ -24,10 +24,10 @@ namespace Persistance.Migrations
                 name: "Game",
                 columns: table => new
                 {
-                    GameId = table.Column<int>(nullable: false)
+                    GameId = table.Column<long>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     GameName = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: false)
+                    UserId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,39 +41,39 @@ namespace Persistance.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Game",
+                columns: new[] { "GameId", "GameName", "UserId" },
+                values: new object[] { 40220438528782809L, "Goblin Battle", 1L });
+
+            migrationBuilder.InsertData(
+                table: "Game",
+                columns: new[] { "GameId", "GameName", "UserId" },
+                values: new object[] { 50220438528782809L, "Orc Battle", 1L });
+
+            migrationBuilder.InsertData(
+                table: "Game",
+                columns: new[] { "GameId", "GameName", "UserId" },
+                values: new object[] { 60220438528782809L, "Dragon Battle", 1L });
+
+            migrationBuilder.InsertData(
+                table: "Game",
+                columns: new[] { "GameId", "GameName", "UserId" },
+                values: new object[] { 70220438528782809L, "Minotaur Battle", 2L });
+
+            migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "UserName" },
-                values: new object[] { 1, "joshisplutar@gmail.com", "Josh Wren" });
+                values: new object[] { 10220438528782809L, "joshisplutar@gmail.com", "Josh Wren" });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "UserName" },
-                values: new object[] { 2, "josasdfasdfh@life.com", "Tim" });
+                values: new object[] { 20220438528782809L, "josasdfasdfh@life.com", "Tim" });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "UserName" },
-                values: new object[] { 3, "joasdfsh@life.com", "Bob" });
-
-            migrationBuilder.InsertData(
-                table: "Game",
-                columns: new[] { "GameId", "GameName", "UserId" },
-                values: new object[] { 1, "Goblin Battle", 1 });
-
-            migrationBuilder.InsertData(
-                table: "Game",
-                columns: new[] { "GameId", "GameName", "UserId" },
-                values: new object[] { 2, "Orc Battle", 1 });
-
-            migrationBuilder.InsertData(
-                table: "Game",
-                columns: new[] { "GameId", "GameName", "UserId" },
-                values: new object[] { 3, "Dragon Battle", 1 });
-
-            migrationBuilder.InsertData(
-                table: "Game",
-                columns: new[] { "GameId", "GameName", "UserId" },
-                values: new object[] { 4, "Minotaur Battle", 2 });
+                values: new object[] { 30220438528782809L, "joasdfsh@life.com", "Bob" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Game_UserId",

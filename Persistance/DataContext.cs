@@ -18,16 +18,17 @@ namespace Persistance
         {
             modelBuilder.Entity<User>()
                 .HasData(
-                    new User {Id = 1, UserName = "Josh Wren", Email ="joshisplutar@gmail.com", },
-                    new User {Id = 2, UserName = "Tim", Email ="josasdfasdfh@life.com"},
-                    new User {Id = 3, UserName = "Bob", Email ="joasdfsh@life.com"}
+                    // everything broke when I changed my model to long numbers to accommadte the facebook id
+                    new User {Id = 10220438528782809, UserName = "Josh Wren", Email ="joshisplutar@gmail.com", },
+                    new User {Id = 20220438528782809, UserName = "Tim", Email ="josasdfasdfh@life.com"},
+                    new User {Id = 30220438528782809, UserName = "Bob", Email ="joasdfsh@life.com"}
                 );
             modelBuilder.Entity<Game>()
                 .HasData(
-                    new Game {GameId = 1, GameName ="Goblin Battle", UserId = 1},
-                    new Game {GameId = 2, GameName ="Orc Battle", UserId = 1},
-                    new Game {GameId = 3, GameName ="Dragon Battle", UserId = 1},
-                    new Game {GameId = 4, GameName ="Minotaur Battle", UserId = 2}
+                    new Game {GameId = 40220438528782809, GameName ="Goblin Battle", UserId = 1},
+                    new Game {GameId = 50220438528782809, GameName ="Orc Battle", UserId = 1},
+                    new Game {GameId = 60220438528782809, GameName ="Dragon Battle", UserId = 1},
+                    new Game {GameId = 70220438528782809, GameName ="Minotaur Battle", UserId = 2}
 
                 );
         }

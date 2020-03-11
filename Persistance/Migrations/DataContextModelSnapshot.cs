@@ -17,14 +17,14 @@ namespace Persistance.Migrations
 
             modelBuilder.Entity("Domain.Game", b =>
                 {
-                    b.Property<int>("GameId")
+                    b.Property<long>("GameId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("GameName")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("UserId")
+                    b.Property<long>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("GameId");
@@ -36,33 +36,33 @@ namespace Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            GameId = 1,
+                            GameId = 40220438528782809L,
                             GameName = "Goblin Battle",
-                            UserId = 1
+                            UserId = 1L
                         },
                         new
                         {
-                            GameId = 2,
+                            GameId = 50220438528782809L,
                             GameName = "Orc Battle",
-                            UserId = 1
+                            UserId = 1L
                         },
                         new
                         {
-                            GameId = 3,
+                            GameId = 60220438528782809L,
                             GameName = "Dragon Battle",
-                            UserId = 1
+                            UserId = 1L
                         },
                         new
                         {
-                            GameId = 4,
+                            GameId = 70220438528782809L,
                             GameName = "Minotaur Battle",
-                            UserId = 2
+                            UserId = 2L
                         });
                 });
 
             modelBuilder.Entity("Domain.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -79,19 +79,19 @@ namespace Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = 10220438528782809L,
                             Email = "joshisplutar@gmail.com",
                             UserName = "Josh Wren"
                         },
                         new
                         {
-                            Id = 2,
+                            Id = 20220438528782809L,
                             Email = "josasdfasdfh@life.com",
                             UserName = "Tim"
                         },
                         new
                         {
-                            Id = 3,
+                            Id = 30220438528782809L,
                             Email = "joasdfsh@life.com",
                             UserName = "Bob"
                         });
