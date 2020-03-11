@@ -18,6 +18,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Persistance;
+using System.Net.Http;
+using System.Net.Http.Headers;
+
 
 namespace API
 {
@@ -25,7 +28,7 @@ namespace API
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            Configuration = configuration; 
         }
 
         public IConfiguration Configuration { get; }
@@ -73,6 +76,8 @@ namespace API
 
             // Register the scope authorization handler
             services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
+            AuthV2Token authV2Token = new AuthV2Token();
+            
             
         }
 

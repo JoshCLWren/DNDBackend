@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ namespace API
 {
     public class Program
     {
+        static readonly HttpClient client = new HttpClient();
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
@@ -31,6 +33,7 @@ namespace API
                     logger.LogError(ex, "An Error happened during Migration.");
                 }
             }
+            
             host.Run();
 
             
