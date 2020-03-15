@@ -38,25 +38,25 @@ namespace Persistance.Migrations
                         {
                             GameId = 40220438528782809L,
                             GameName = "Goblin Battle",
-                            UserId = 1L
+                            UserId = 10220438528782809L
                         },
                         new
                         {
                             GameId = 50220438528782809L,
                             GameName = "Orc Battle",
-                            UserId = 1L
+                            UserId = 10220438528782809L
                         },
                         new
                         {
                             GameId = 60220438528782809L,
                             GameName = "Dragon Battle",
-                            UserId = 1L
+                            UserId = 20220438528782809L
                         },
                         new
                         {
                             GameId = 70220438528782809L,
                             GameName = "Minotaur Battle",
-                            UserId = 2L
+                            UserId = 30220438528782809L
                         });
                 });
 
@@ -65,9 +65,6 @@ namespace Persistance.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("UserName")
                         .HasColumnType("TEXT");
@@ -80,19 +77,16 @@ namespace Persistance.Migrations
                         new
                         {
                             Id = 10220438528782809L,
-                            Email = "joshisplutar@gmail.com",
                             UserName = "Josh Wren"
                         },
                         new
                         {
                             Id = 20220438528782809L,
-                            Email = "josasdfasdfh@life.com",
                             UserName = "Tim"
                         },
                         new
                         {
                             Id = 30220438528782809L,
-                            Email = "joasdfsh@life.com",
                             UserName = "Bob"
                         });
                 });

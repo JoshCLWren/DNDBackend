@@ -50,13 +50,14 @@ namespace DNDBackend.API.Controllers
         // GET api/users/5
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<ActionResult<User>> Get(int id)
+        public async Task<ActionResult<User>> Get(long id)
         {
             // create a static class that uses httpheaders get values and then instantiate it in our controller.
             // look up static and void and what they mean.
             // and then call the userinfo endpoint so that the backend has what the frontend has and create post
             // regex out the the social provider and | and then add the sub id value
             
+            // abstract this into a class. leave the header obviosly as it will be fed into the class or method?
             var responseHeader = Request.Headers["Authorization"].FirstOrDefault();
             Console.WriteLine("=================================");
             Console.WriteLine(responseHeader);
@@ -78,17 +79,32 @@ namespace DNDBackend.API.Controllers
             long goodId = Int64.Parse(subSplit[1]);
             Console.WriteLine("interger time -------------------------");
             Console.WriteLine(goodId);
-            //  does goodId = id?
+            // var values = new Dictionary<string, string>
+            //             {
+            //             { "thing1", "hello" },
+            //             { "thing2", "world" }
+            //             };
+
+            // var content = new FormUrlEncodedContent(values);
+
+            // var response = await client.PostAsync("http://www.example.com/recepticle.aspx", content);
+
+            // var responseString = await response.Content.ReadAsStringAsync();
+            // //  does goodId = id?
             if (goodId == id)
                 {
                     Console.WriteLine("goodId = id");
                 }
                 else {
-                    Console.WriteLine("goodId = " + goodId + " but the id you seached was " + id);
-                }
-            
+                    Console.WriteLine("goodId = " + goodId + " but the id you searched was " + id);
+                    // post method here... I can use long goodId for id, nickname for username, but where do I get email? do I need email?
+                    // I'll post a dummy value for email and maybe decide to not use it 
+                    // private static readonly HttpClient client = new HttpClient();
+                    } 
 
             var User = await _context.Users.FindAsync(id);    
+            //https://docs.microsoft.com/en-us/ef/ef6/querying/ 
+            // don't call your api inside your api
             return Ok(User);
 
         }
@@ -100,19 +116,19 @@ namespace DNDBackend.API.Controllers
         {
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(Get), new {UserName = user.UserName, email = user.Email}, user);
+            return CreatedAtAction(nameof(Get), new {UserName = user.UserName}, user);
         }
 
 
         // PUT api/users/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string users)
+        public void Put(long id, [FromBody] string users)
         {
         }
 
         // DELETE api/users/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(long id)
         {
         }
     }

@@ -33,7 +33,7 @@ namespace DNDBackend.API.Controllers
         // GET api/users/5
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<ActionResult<Game>> Get(int id)
+        public async Task<ActionResult<Game>> Get(long id)
         {
             var Game = await _context.Game.FindAsync(id);
             return Ok(Game);
@@ -47,13 +47,13 @@ namespace DNDBackend.API.Controllers
 
         // PUT api/users/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string users)
+        public void Put(long id, [FromBody] string users)
         {
         }
 
         // DELETE api/users/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(long id)
         {
         }
     }
