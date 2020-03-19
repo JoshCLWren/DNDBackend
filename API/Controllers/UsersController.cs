@@ -52,59 +52,14 @@ namespace DNDBackend.API.Controllers
         [Authorize]
         public async Task<ActionResult<User>> Get(long id)
         {
-            // create a static class that uses httpheaders get values and then instantiate it in our controller.
-            // look up static and void and what they mean.
-            // and then call the userinfo endpoint so that the backend has what the frontend has and create post
-            // regex out the the social provider and | and then add the sub id value
-            
-            // abstract this into a class. leave the header obviosly as it will be fed into the class or method?
             var responseHeader = Request.Headers["Authorization"].FirstOrDefault();
-            Console.WriteLine("=================================");
-            Console.WriteLine(responseHeader);
-            string[] bearerToken = responseHeader.Split(" ");
-            Console.WriteLine("=================================");
-            Console.WriteLine(bearerToken[1]);
-            var txtJwtIn = bearerToken[1];
-            var handler = new JwtSecurityTokenHandler();
-            var jsonToken = handler.ReadToken(txtJwtIn);
-            var decodedToken = handler.ReadToken(txtJwtIn) as JwtSecurityToken;
-            Console.WriteLine("+++++++++++++++++++++++++++++++++++");
-            Console.WriteLine(decodedToken.Subject);
-            var sub = decodedToken.Subject;
-            Console.WriteLine("SUB+++++++++++++++++++++++++++++++++++");
-            Console.WriteLine(sub);
-            string[] subSplit = sub.Split("|");
-            Console.WriteLine("postpipe||||||||||||||||||||||||||||||||||");
-            Console.WriteLine(subSplit[1]);
-            long goodId = Int64.Parse(subSplit[1]);
-            Console.WriteLine("interger time -------------------------");
-            Console.WriteLine(goodId);
-            // var values = new Dictionary<string, string>
-            //             {
-            //             { "thing1", "hello" },
-            //             { "thing2", "world" }
-            //             };
-
-            // var content = new FormUrlEncodedContent(values);
-
-            // var response = await client.PostAsync("http://www.example.com/recepticle.aspx", content);
-
-            // var responseString = await response.Content.ReadAsStringAsync();
-            // //  does goodId = id?
-            if (goodId == id)
-                {
-                    Console.WriteLine("goodId = id");
-                }
-                else {
-                    Console.WriteLine("goodId = " + goodId + " but the id you searched was " + id);
-                    // post method here... I can use long goodId for id, nickname for username, but where do I get email? do I need email?
-                    // I'll post a dummy value for email and maybe decide to not use it 
-                    // private static readonly HttpClient client = new HttpClient();
-                    } 
-
+            UserIDClass useridclass = new UserIDClass();
+            useridclass.idMethod(responseHeader, id);
             var User = await _context.Users.FindAsync(id);    
             //https://docs.microsoft.com/en-us/ef/ef6/querying/ 
             // don't call your api inside your api
+            var goodId = useridclass.idMethod(responseHeader, id);
+            Console.WriteLine(goodId);
             return Ok(User);
 
         }
