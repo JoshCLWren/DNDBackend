@@ -20,11 +20,11 @@ namespace API
             long goodId = Int64.Parse(subSplit[1]);
             if (goodId == id)
                 {
-                    Console.WriteLine("goodId "+ goodId + "  = id " + id);
+                    // Console.WriteLine("goodId "+ goodId + "  = id " + id);
                 }
                 else {
                 
-                Console.WriteLine("goodId = " + goodId + " but the id you searched was " + id);
+                // Console.WriteLine("goodId = " + goodId + " but the id you searched was " + id);
                     // post method here... I can use long goodId for id, nickname for username, but where do I get email? do I need email?
                     // I'll post a dummy value for email and maybe decide to not use it 
                     // private static readonly HttpClient client = new HttpClient();

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persistance.Migrations
 {
@@ -23,8 +24,7 @@ namespace Persistance.Migrations
                 name: "Game",
                 columns: table => new
                 {
-                    GameId = table.Column<long>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    GameId = table.Column<Guid>(nullable: false),
                     GameName = table.Column<string>(nullable: true),
                     UserId = table.Column<long>(nullable: false)
                 },
@@ -57,22 +57,22 @@ namespace Persistance.Migrations
             migrationBuilder.InsertData(
                 table: "Game",
                 columns: new[] { "GameId", "GameName", "UserId" },
-                values: new object[] { 40220438528782809L, "Goblin Battle", 10220438528782809L });
+                values: new object[] { new Guid("899f04dd-064d-477a-a45d-e6b9a03aa970"), "Goblin Battle", 10220438528782809L });
 
             migrationBuilder.InsertData(
                 table: "Game",
                 columns: new[] { "GameId", "GameName", "UserId" },
-                values: new object[] { 50220438528782809L, "Orc Battle", 10220438528782809L });
+                values: new object[] { new Guid("5eb46df3-a99d-4ecb-b88d-71becf1bc026"), "Orc Battle", 10220438528782809L });
 
             migrationBuilder.InsertData(
                 table: "Game",
                 columns: new[] { "GameId", "GameName", "UserId" },
-                values: new object[] { 60220438528782809L, "Dragon Battle", 20220438528782809L });
+                values: new object[] { new Guid("a5310bf9-b45c-41b7-b732-2122245122e6"), "Dragon Battle", 20220438528782809L });
 
             migrationBuilder.InsertData(
                 table: "Game",
                 columns: new[] { "GameId", "GameName", "UserId" },
-                values: new object[] { 70220438528782809L, "Minotaur Battle", 30220438528782809L });
+                values: new object[] { new Guid("2fc4493f-bc85-40c1-a82a-7fcd02d03b29"), "Minotaur Battle", 30220438528782809L });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Game_UserId",
