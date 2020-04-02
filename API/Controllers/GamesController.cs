@@ -7,6 +7,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Persistance;
+using RestSharp;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using API;
+using Newtonsoft.Json;
+using System.Text.RegularExpressions;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace DNDBackend.API.Controllers
 {
@@ -24,7 +31,7 @@ namespace DNDBackend.API.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<Game>>> Get()
+        public async Task<ActionResult<IEnumerable<Game>>> GetGames()
         {
             var Games = await _context.Game.ToListAsync();
             return Ok(Games);
@@ -33,18 +40,22 @@ namespace DNDBackend.API.Controllers
         // GET api/users/5
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<ActionResult<Game>> Get(long id)
+        public async Task<ActionResult<Game>> Get(Guid Id)
         {
-            var Game = await _context.Game.FindAsync(id);
+            var Game = await _context.Game.FindAsync(Id);
             return Ok(Game);
         }
 
         // POST api/users
         [HttpPost]
-        public void Post([FromBody] string users)
+        [Authorize]
+        public async Task<ActionResult> PostGame(Game game)
         {
+            _context.Game.Add(game);
+            await _context.SaveChangesAsync();
+ 
+            return CreatedAtAction("GetGames", new { Guid GameId = Guid.NewGuid()}, game );
         }
-
         // PUT api/users/5
         [HttpPut("{id}")]
         public void Put(long id, [FromBody] string users)
