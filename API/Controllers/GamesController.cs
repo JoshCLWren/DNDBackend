@@ -54,7 +54,7 @@ namespace DNDBackend.API.Controllers
             _context.Game.Add(game);
             await _context.SaveChangesAsync();
  
-            return CreatedAtAction("GetGames", new { Guid GameId = Guid.NewGuid()}, game );
+            return CreatedAtAction("GetGames", new {GameId = Guid.NewGuid()}, game );
         }
         // PUT api/users/5
         [HttpPut("{id}")]
