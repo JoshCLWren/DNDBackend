@@ -59,7 +59,7 @@ namespace DNDBackend.API.Controllers
             //https://docs.microsoft.com/en-us/ef/ef6/querying/ 
             // don't call your api inside your api
             var goodId = useridclass.idMethod(responseHeader, id);
-            Console.WriteLine(goodId);
+            // Console.WriteLine(goodId);
             return Ok(User);
 
         }

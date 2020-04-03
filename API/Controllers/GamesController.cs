@@ -7,13 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Persistance;
-using RestSharp;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using API;
-using Newtonsoft.Json;
-using System.Text.RegularExpressions;
-using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Http;
 
 namespace DNDBackend.API.Controllers
 {
@@ -56,16 +50,31 @@ namespace DNDBackend.API.Controllers
  
             return CreatedAtAction("GetGames", new {GameId = Guid.NewGuid()}, game );
         }
-        // PUT api/users/5
+        // PUT api/games/5
         [HttpPut("{id}")]
-        public void Put(long id, [FromBody] string users)
+        [Authorize]
+        public IActionResult PUT (Guid id, [FromBody] Game game)
         {
-        }
+            var dbGame = _context.Game
+                .FirstOrDefault(s => s.GameId.Equals(id));
+ 
+            dbGame.GameName = game.GameName;
+            dbGame.UserId = game.UserId;
+ 
+            _context.SaveChanges();
 
+ 
+            return NoContent();
+        }
+ 
         // DELETE api/users/5
         [HttpDelete("{id}")]
         public void Delete(long id)
         {
+        }
+        private bool GameExists(Guid id)
+        {
+            return _context.Game.Any(e => e.GameId == id);
         }
     }
 }
