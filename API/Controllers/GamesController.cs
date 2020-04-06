@@ -31,7 +31,7 @@ namespace DNDBackend.API.Controllers
             return Ok(Games);
         }
 
-        // GET api/users/5
+        // GET api/game/5
         [HttpGet("{id}")]
         [Authorize]
         public async Task<ActionResult<Game>> Get(Guid Id)
@@ -40,7 +40,7 @@ namespace DNDBackend.API.Controllers
             return Ok(Game);
         }
 
-        // POST api/users
+        // POST api/game
         [HttpPost]
         [Authorize]
         public async Task<ActionResult> PostGame(Game game)
@@ -67,10 +67,20 @@ namespace DNDBackend.API.Controllers
             return NoContent();
         }
  
-        // DELETE api/users/5
+        // DELETE api/game/5
         [HttpDelete("{id}")]
-        public void Delete(long id)
+        public IActionResult Delete(Guid id)
         {
+            var game = _context.Game
+                .FirstOrDefault(s => s.GameId.Equals(id));
+        
+            if (game == null)
+                return BadRequest();
+        
+            _context.Remove(game);
+            _context.SaveChanges();
+        
+            return NoContent();
         }
         private bool GameExists(Guid id)
         {

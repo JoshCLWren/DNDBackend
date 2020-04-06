@@ -21,8 +21,9 @@ namespace DNDBackend.API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-
+        
         private readonly DataContext _context;
+        
         public UsersController(DataContext context)
         {
             this._context = context;
@@ -50,17 +51,38 @@ namespace DNDBackend.API.Controllers
         // GET api/users/5
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<ActionResult<User>> Get(long id)
+        public async Task<ActionResult<User>> Get(long id, User user)
         {
+            // take header and save to responseHeader var
             var responseHeader = Request.Headers["Authorization"].FirstOrDefault();
+            // instantiate UserIDCLass which will find value of sub which will be used as UserID
             UserIDClass useridclass = new UserIDClass();
+            //pass the responseheader and id to the method to regex out the id in the sub value of the user object in responseHeader
             useridclass.idMethod(responseHeader, id);
-            var User = await _context.Users.FindAsync(id);    
+            //id is saved to User var
+            var User = await _context.Users.FindAsync(id);  
+            //goodId is the regexed id from the responseHeader
+            var goodId = useridclass.idMethod(responseHeader, id);  
             //https://docs.microsoft.com/en-us/ef/ef6/querying/ 
             // don't call your api inside your api
-            var goodId = useridclass.idMethod(responseHeader, id);
-            // Console.WriteLine(goodId);
-            return Ok(User);
+            // if (id = an id in database)
+                //return ok user
+                //else (add user)
+            var userQuery = _context.Users.Find(goodId);
+            if (userQuery == null) {
+                Console.WriteLine("not found in database");
+                _context.Users.Add(user);
+                await _context.SaveChangesAsync();
+                return CreatedAtAction("GetGames", new {Id = goodId}, user);
+
+            }else {
+                Console.WriteLine("ahh");
+                return Ok(User);
+
+            }
+
+            // // Console.WriteLine(goodId);
+
 
         }
 
